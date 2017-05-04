@@ -149,6 +149,12 @@ func (p *baseGoPlugin) Flags(protoSpec *protoSpec, relDirPath string, outDirPath
 		}
 		goOutOpts = fmt.Sprintf("%splugins=grpc", goOutOpts)
 	}
+	if p.options.GoMicro {
+		if goOutOpts != "" {
+			goOutOpts = fmt.Sprintf("%s,", goOutOpts)
+		}
+		goOutOpts = fmt.Sprintf("%splugins=micro", goOutOpts)
+	}
 	var flags []string
 	if len(goOutOpts) > 0 {
 		flags = append(flags, fmt.Sprintf("--%s_out=%s:%s", p.pluginType, goOutOpts, outDirPath))
